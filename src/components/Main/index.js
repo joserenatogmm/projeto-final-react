@@ -26,7 +26,7 @@ function dataFormatada(dataString){
 
 
 export default function Main() {
-    var noticias = Noticias.rss.channel.item
+    var noticias = Noticias.items
 
     return (
         <MainFrame>
@@ -35,8 +35,8 @@ export default function Main() {
                         <Publications>
                             {noticias.map(
                                 noticia =>
-                                    <Publication title={noticia.title} publicationDate={dataFormatada(noticia.pubDate)}>
-                                        {noticia.description.text}
+                                    <Publication title={noticia.content.title} publicationDate={dataFormatada(noticia.publication)} url={noticia.content.url}>
+                                        {noticia.content.summary}
                                     </Publication>
                             )}
                         </Publications>
