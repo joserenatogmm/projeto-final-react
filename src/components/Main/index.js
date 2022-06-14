@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 
 import Theme from '../Theme';
 import Publication from "../Publication";
+import Noticias from "../../Noticias";
 
 const MainFrame = styled.div`
   background-color: ${Theme().Colors.reset_background};
@@ -9,26 +11,38 @@ const MainFrame = styled.div`
   padding-left: 250px;
 `
 const Publications = styled.div`
-    background-color: red;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: ${Theme().Colors.reset_background};
 `
 
+function dataFormatada(dataString){
+    var data = new Date(dataString),
+        dia  = data.getDate().toString().padStart(2, '0'),
+        mes  = (data.getMonth()+1).toString().padStart(2, '0'),
+        ano  = data.getFullYear();
+    return dia+"/"+mes+"/"+ano;
+}
+
+
 export default function Main() {
+    var noticias = Noticias.rss.channel.item
+
     return (
         <MainFrame>
-            <Publications>
-                <Publication title="Teste" publicationDate="26/12/1974">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nec orci congue, varius lectus a, feugiat risus. In vitae neque tincidunt libero imperdiet interdum. Fusce tempor diam id feugiat vulputate. Nulla volutpat sem velit, in ullamcorper quam aliquam eu. Aenean scelerisque, nulla eu ullamcorper tempor, sem elit ultrices dui, a egestas ligula lectus non leo. Duis sollicitudin aliquam dolor, et ullamcorper nulla consectetur eu. Vivamus at quam lorem. Proin a lorem justo. Sed scelerisque ac est ac congue. Aenean vitae arcu vestibulum, mollis tellus ac, porttitor sapien. Mauris erat ipsum, volutpat eget lacinia in, aliquet eget ligula. Cras quis tortor purus. Nulla facilisi. Pellentesque ultricies blandit accumsan.
-                </Publication>
-                <Publication title="Teste" publicationDate="26/12/1974">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nec orci congue, varius lectus a, feugiat risus. In vitae neque tincidunt libero imperdiet interdum. Fusce tempor diam id feugiat vulputate. Nulla volutpat sem velit, in ullamcorper quam aliquam eu. Aenean scelerisque, nulla eu ullamcorper tempor, sem elit ultrices dui, a egestas ligula lectus non leo. Duis sollicitudin aliquam dolor, et ullamcorper nulla consectetur eu. Vivamus at quam lorem. Proin a lorem justo. Sed scelerisque ac est ac congue. Aenean vitae arcu vestibulum, mollis tellus ac, porttitor sapien. Mauris erat ipsum, volutpat eget lacinia in, aliquet eget ligula. Cras quis tortor purus. Nulla facilisi. Pellentesque ultricies blandit accumsan.
-                </Publication>
-                <Publication title="Teste" publicationDate="26/12/1974">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nec orci congue, varius lectus a, feugiat risus. In vitae neque tincidunt libero imperdiet interdum. Fusce tempor diam id feugiat vulputate. Nulla volutpat sem velit, in ullamcorper quam aliquam eu. Aenean scelerisque, nulla eu ullamcorper tempor, sem elit ultrices dui, a egestas ligula lectus non leo. Duis sollicitudin aliquam dolor, et ullamcorper nulla consectetur eu. Vivamus at quam lorem. Proin a lorem justo. Sed scelerisque ac est ac congue. Aenean vitae arcu vestibulum, mollis tellus ac, porttitor sapien. Mauris erat ipsum, volutpat eget lacinia in, aliquet eget ligula. Cras quis tortor purus. Nulla facilisi. Pellentesque ultricies blandit accumsan.
-                </Publication>
-                <Publication title="Teste" publicationDate="26/12/1974">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nec orci congue, varius lectus a, feugiat risus. In vitae neque tincidunt libero imperdiet interdum. Fusce tempor diam id feugiat vulputate. Nulla volutpat sem velit, in ullamcorper quam aliquam eu. Aenean scelerisque, nulla eu ullamcorper tempor, sem elit ultrices dui, a egestas ligula lectus non leo. Duis sollicitudin aliquam dolor, et ullamcorper nulla consectetur eu. Vivamus at quam lorem. Proin a lorem justo. Sed scelerisque ac est ac congue. Aenean vitae arcu vestibulum, mollis tellus ac, porttitor sapien. Mauris erat ipsum, volutpat eget lacinia in, aliquet eget ligula. Cras quis tortor purus. Nulla facilisi. Pellentesque ultricies blandit accumsan.
-                </Publication>
-            </Publications>
+                <Routes>
+                    <Route path="/" element={
+                        <Publications>
+                            {noticias.map(
+                                noticia =>
+                                    <Publication title={noticia.title} publicationDate={dataFormatada(noticia.pubDate)}>
+                                        {noticia.description.text}
+                                    </Publication>
+                            )}
+                        </Publications>
+                    }></Route>
+                    <Route path="/sobre-nos" element={<span>sobre</span>}></Route>
+                </Routes>
         </MainFrame>
     )
 }

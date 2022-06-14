@@ -27,6 +27,10 @@ const PublicationText = styled.p`
 `
 
 const Publication = ({title, publicationDate, children}) => {
+    if (!Boolean(children)) {
+        return (<></>)
+    }
+
     return (
         <PublicationDiv>
             <PublicationTitle>{title}</PublicationTitle>

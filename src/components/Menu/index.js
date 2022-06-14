@@ -25,8 +25,8 @@ export default function Menu() {
     return (
         <MenuDiv>
             <MenuUl>
-                <MenuItem title="Home"></MenuItem>
-                <MenuItem title="Sobre Nós"></MenuItem>
+                <MenuItem title="Home" to="/"></MenuItem>
+                <MenuItem title="Sobre Nós" to="/sobre-nos"></MenuItem>
             </MenuUl>
         </MenuDiv>
     )

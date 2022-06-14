@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import {Link} from "react-router-dom";
+
 import Theme from "../../Theme";
 
 const MenuLi = styled.li`
@@ -13,11 +15,23 @@ const MenuLi = styled.li`
     background-color: ${Theme().Colors.primary_dark};
     color: ${Theme().Colors.ligth_color};
   }
+  
+  a {
+    text-decoration: none;
+    color: ${Theme().Colors.dark_color};
+  }
+  
+  a:hover {
+    text-decoration: none;
+    color: ${Theme().Colors.ligth_color};
+  }
 `
 
-const MenuItem = ({ title }) => {
+const MenuItem = ({ title, to }) => {
     return (
-        <MenuLi>{title}</MenuLi>
+        <MenuLi>
+            <Link to={to}   >{title}</Link>
+        </MenuLi>
     )
 }
 
